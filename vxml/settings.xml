@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+ <var name="bye" expr="'Ciao'"/>
+ <link next="operator_xfer.vxml">
+   <grammar type="application/srgs+xml" root="root" version="1.0">
+     <rule id="root" scope="public">operator</rule>
+  </grammar>
+ </link>
+</vxml>

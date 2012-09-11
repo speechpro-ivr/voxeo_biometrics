@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<vxml version="2.1" application="settings.xml">
+  <form>
+    <block>
+      <prompt>
+        Welcome to speech pro biometrics demo!
+      </prompt>
+    </block>
+    <block>
+      <prompt>
+        I have recognized your phone number.
+        <value expr="application.session.ani"/>.
+      </prompt>
+    </block>
+  </form>
+</vxml>
+
