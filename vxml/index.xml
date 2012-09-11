@@ -9,7 +9,7 @@
     <block>
       <prompt>
         I have recognized your phone number.
-        <value expr="application.session.ani"/>.
+        <value expr="session.connection.remote.uri"/>.
       </prompt>
     </block>
   </form>
