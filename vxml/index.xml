@@ -9,7 +9,7 @@
     <block>
       <prompt>
         I have recognized your phone number.
-        <value expr="session.connection.remote.uri"/>.
+        <say-as interpret-as="vxml:digits"><value expr="session.connection.remote.uri"/></say-as>.
       </prompt>
     </block>
   </form>
