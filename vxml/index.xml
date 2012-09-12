@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>	
 <vxml version="2.1" application="settings.xml" xmlns="http://www.w3.org/2001/vxml" 
     xmlns:voxeo="http://community.voxeo.com/xmlns/vxml"> 
-  <form>
+
+  <var name="Weather" />
+
+  <form id="greeting">
     <block>
       <voxeo:recordcall value="100" info="biometrics" /> 
       <prompt>
@@ -11,9 +14,36 @@
     <block>
       <prompt>
         I have recognized your phone number.
-        <say-as interpret-as="vxml:phone"><value expr="session.connection.remote.uri"/></say-as>.
+        <say-as interpret-as="vxml:phone">
+          <value expr="session.connection.remote.uri"/>
+        </say-as>.
       </prompt>
+      <goto next="#get_weather"/>
     </block>
+  </form>
+
+  <form id="get_weather">
+    <block>
+      <data name="Weather" 
+            src="http://weather.yahooapis.com/forecastrss?w=2502265"/>
+      <assign name="document.Weather" expr="Weather.documentElement"/>
+      <goto next="play_weather"/>
+    </block>
+  </form>
+
+  <form id="play_weather">
+    <script>
+      <![CDATA[
+      function GetData(d,t) {
+      return (d.getElementsByTagName(t).item(0).firstChild.data)
+      }
+      ]]>
+    </script>
+
+    <block>
+      <prompt>The weather today is <value expr="GetData(Weather, 'title')" /> </prompt>
+    </block>
+    
     <block>
       <voxeo:recordcall value="0" info="biometrics" /> 
       <exit/>
