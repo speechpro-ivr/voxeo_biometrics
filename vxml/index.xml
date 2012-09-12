@@ -27,7 +27,7 @@
       <data name="Weather" 
             src="http://weather.yahooapis.com/forecastrss?w=2502265"/>
       <assign name="document.Weather" expr="Weather.documentElement"/>
-      <goto next="play_weather"/>
+      <goto next="#play_weather"/>
     </block>
   </form>
 
