@@ -35,7 +35,7 @@
     <script>
       <![CDATA[
       function GetData(d,t) {
-      return (d.getElementsByTagName(t).item(0).firstChild.data)
+      return (d.getElementsByTagName(t).item(0).firstChild.data);
       }
       ]]>
     </script>
