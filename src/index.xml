@@ -16,7 +16,7 @@
 
   <form id="check_registration">
     <block>
-      <data name="regRequest" srcexpr="clientsApiUri" ecmaxmltype ="e4x"/>
+      <data name="regRequest" srcexpr="clientsApiGetUri" ecmaxmltype ="e4x"/>
       <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
       <log>{"DEBUG":"card_id = <value expr="application.cardId" />"}</log>
       <if cond="application.cardId > 0">
@@ -55,7 +55,7 @@
       <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
       <if cond="application.cardId > 0">
         <var name="client" expr="clientJson(application.ani, application.cardId);"/>
-        <data name="createClient" srcexpr="clientsApiUri" method="post" namelist="client"/>
+        <data name="createClient" srcexpr="clientsApiPostUri" method="post" namelist="client"/>
         <goto next="#enrollSuccess"/>
       <else />
         <goto next="#enrollError"/>
