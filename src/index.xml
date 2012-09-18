@@ -18,6 +18,7 @@
     <block>
       <data name="regRequest" srcexpr="clientsApiUri" ecmaxmltype ="e4x"/>
       <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
+      <log>{"DEBUG":"card_id = <value expr="application.cardId" />"}</log>
       <if cond="application.cardId > 0">
         <goto next="#enroll" />
       <else />
