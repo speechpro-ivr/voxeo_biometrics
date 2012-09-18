@@ -16,9 +16,8 @@
 
   <form id="check_registration">
     <block>
-      <data name="regRequest" srcexpr="clientsApiUri"/>
-      <var name="clients" expr="regRequest.documentElement"/>
-      <assign name="application.cardId" expr="searchAni(clients, application.ani);"/>
+      <data name="regRequest" srcexpr="clientsApiUri" ecmaxmltype ="e4x"/>
+      <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
       <if cond="application.cardId > 0">
         <goto next="#enroll" />
       <else />
