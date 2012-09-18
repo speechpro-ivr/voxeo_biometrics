@@ -2,7 +2,7 @@
 <vxml version="2.1" application="settings.xml" xmlns="http://www.w3.org/2001/vxml" 
     xmlns:voxeo="http://community.voxeo.com/xmlns/vxml"> 
 
-  <script src="script.js" />
+  <script src="/script.js" />
 
   <form id="greeting">
     <block>
