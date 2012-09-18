@@ -1,11 +1,13 @@
-function searchAni(jsonarray, ani) {
-  var i = 0;
-  for (i;  i < jsonarray.length; i++) {
-    if (jsonarray[i].ani == ani) {
-      return jsonarray[i].card_id;
-    } 
-  }
-  return -1;
+function searchAni(d, client_ani) {
+    var clients = d.getElementsByTagName('client');
+    var i = 0;
+    for (i = 0; i < clients.length; i++) {
+        var ani = clients[i].getElementsByTagName('ani').item(0).firstChild.data;
+        if (ani == client_ani) {
+            return clients[i].getElementsByTagName('card-id').item(0).firstChild.data;
+        }
+    }
+    return -1;
 }
 
 function getCardId (xml) {
