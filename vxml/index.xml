@@ -2,51 +2,122 @@
 <vxml version="2.1" application="settings.xml" xmlns="http://www.w3.org/2001/vxml" 
     xmlns:voxeo="http://community.voxeo.com/xmlns/vxml"> 
 
-  <var name="Weather" />
+  <script src="script.js" />
 
   <form id="greeting">
     <block>
       <voxeo:recordcall value="100" info="biometrics" /> 
-      <prompt>
+      <prompt bergein="false">
         Welcome to speech pro biometrics demo!
       </prompt>
+      <goto next="#check_registration" />
     </block>
+  </form>
+
+  <form id="check_registration">
     <block>
-      <prompt>
-        I have recognized your phone number.
-        <say-as interpret-as="vxml:phone">
-          <value expr="session.connection.remote.uri"/>
-        </say-as>.
+      <data name="regRequest" srcexpr="clientsApiUri"/>
+      <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
+      <if cond="application.cardId > 0">
+        <goto next="#enroll" />
+      <else />
+        <goto next="#verify"/>
+      </if>
+    </block>
+  </form>
+
+  <form id="enroll">
+    <block>
+      <prompt bargein="false">
+        You are not registered yet. 
+        Let's proceed to the registration.
+        Create your passphrase. It should contain more than three words. For durability you will be asked to repeat it three times.
       </prompt>
-      <goto next="#get_weather"/>
+    </block>
+    <record name="r1" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        After the beep please say your passphrase.
+      </prompt>
+    </record>
+    <record name="r2" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        One more time, please!
+      </prompt>
+    </record>
+    <record name="r3" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        And the last time.
+      </prompt>
+    </record>
+    <filled>
+      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" namelist="r1 r2 r3" enctype="multipart/form-data" />
+      <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
+      <if cond="application.cardId > 0">
+        <var name="client" expr="clientJson(application.ani, application.cardId);"/>
+        <data name="createClient" srcexpr="clientsApiUri" method="post" namelist="client"/>
+        <goto next="#enrollSuccess"/>
+      <else />
+        <goto next="#enrollError"/>
+      </if>
+    </filled>
+  </form>
+
+  <form id="verify">
+    <block>
+      <prompt bargein="false">
+        We've recognized you! Let's proceed to the verification.
+      </prompt>
+    </block>
+    <record name="r1" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        After the beep please say your passphrase.
+      </prompt>
+    </record>
+    <filled>
+      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.ani r1" enctype="multipart/form-data" />
+      <assign name="score" expr="getVerificationScore(verifyRequest);" />
+      <if cond="score > 0.7">
+        <goto next="#verifySuccess"/>
+      <else/>
+        <goto next="#verifyError"/>
+      </if>
+    </filled>
+  </form>
+
+
+  <form id="enrollSuccess">
+    <block>
+      <prompt bargein="false">
+        Congratulations! You voice registration succeeded!
+      </prompt>
+      <disconnect />
     </block>
   </form>
 
-  <form id="get_weather">
+  <form id="enrollError">
     <block>
-      <data name="Weather" 
-            src="http://weather.yahooapis.com/forecastrss?w=2502265"/>
-      <assign name="document.Weather" expr="Weather.documentElement"/>
-      <goto next="#play_weather"/>
+      <prompt bargein="false">
+        Registration problem. Please, try again.
+      </prompt>
+      <goto next="#enroll" />
     </block>
   </form>
 
-  <form id="play_weather">
-    <script>
-      <![CDATA[
-      function GetData(d,t) {
-      return (d.getElementsByTagName(t).item(0).firstChild.data);
-      }
-      ]]>
-    </script>
-
+  <form id="verifySuccess">
     <block>
-      <prompt>The weather today is <value expr="GetData(Weather, 'title')" /> </prompt>
+      <prompt bargein="false">
+        Congratulations! You voice verification succeeded!
+      </prompt>
+      <disconnect />
     </block>
-    
+  </form>
+
+  <form id="verifyError">
     <block>
-      <voxeo:recordcall value="0" info="biometrics" /> 
-      <exit/>
+      <prompt bargein="false">
+        Verification problem. Please, try again.
+      </prompt>
+      <goto next="#verify" />
     </block>
   </form>
 </vxml>
