@@ -20,9 +20,9 @@
       <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
       <log>{"DEBUG":"card_id = <value expr="application.cardId" />"}</log>
       <if cond="application.cardId > 0">
-        <goto next="#enroll" />
+        <goto next="#verify" />
       <else />
-        <goto next="#verify"/>
+        <goto next="#enroll"/>
       </if>
     </block>
   </form>
