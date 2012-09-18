@@ -51,8 +51,8 @@
       </prompt>
     </record>
     <filled>
-      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" namelist="r1 r2 r3" enctype="multipart/form-data" />
-      <assign name="application.cardId" expr="getCardId(enrollRequest.documentElement);"/>
+      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" namelist="r1 r2 r3" enctype="multipart/form-data" ecmaxmltype ="e4x" />
+      <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
       <if cond="application.cardId > 0">
         <var name="client" expr="clientJson(application.ani, application.cardId);"/>
         <data name="createClient" srcexpr="clientsApiUri" method="post" namelist="client"/>
@@ -75,8 +75,8 @@
       </prompt>
     </record>
     <filled>
-      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.ani r1" enctype="multipart/form-data" />
-      <assign name="score" expr="getVerificationScore(verifyRequest.documentElement);" />
+      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.ani r1" enctype="multipart/form-data" ecmaxmltype ="e4x"/>
+      <assign name="score" expr="getVerificationScore(verifyRequest);" />
       <if cond="score > 0.7">
         <goto next="#verifySuccess"/>
       <else/>
