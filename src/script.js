@@ -1,7 +1,7 @@
 function searchAni(d, client_ani) {
   for (i = 0; i < d.client.length(); i++) {
-    if (client_ani == d.client[i].ani.@data) {
-      return d.client[i].card-id.@data;
+    if (client_ani == d.client[i].ani {
+      return d.client[i].card-id;
     }
   }
   return -1;
