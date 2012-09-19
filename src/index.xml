@@ -77,6 +77,7 @@
       </prompt>
     </record>
     <filled>
+      <log expr="'filled!'"/>
       <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.cardId r1" enctype="multipart/form-data" ecmaxmltype ="e4x" fetchtimeout="10s"/>
       <assign name="score" expr="getVerificationScore(verifyRequest);" />
       <if cond="score &gt; 0.7">
