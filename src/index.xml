@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<vxml version="2.1" application="settings.xml" xmlns="http://www.w3.org/2001/vxml" 
+    xmlns:voxeo="http://community.voxeo.com/xmlns/vxml"> 
+
+  <script src="script.js" />
+
+  <form id="greeting">
+    <block>
+      <voxeo:recordcall value="100" info="biometrics2" /> 
+      <prompt bargein="false">
+        Welcome to speech pro biometrics demo!
+      </prompt>
+      <goto next="#check_registration" />
+    </block>
+  </form>
+
+  <form id="check_registration">
+    <block>
+      <data name="regRequest" srcexpr="clientsApiGetUri" ecmaxmltype ="e4x" fetchtimeout="10s"/>
+      <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
+      <if cond="application.cardId > 0">
+        <goto next="#verify" />
+      <else />
+        <goto next="#enroll"/>
+      </if>
+    </block>
+  </form>
+
+  <form id="enroll">
+    <block>
+      <prompt bargein="false">
+        You are not registered yet. 
+        Let's proceed to the registration.
+        Create your passphrase. It should contain more than three words. For durability you will be asked to repeat it three times.
+      </prompt>
+    </block>
+    <record name="r1" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        After the beep please say your passphrase.
+      </prompt>
+    </record>
+    <record name="r2" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        One more time, please!
+      </prompt>
+    </record>
+    <record name="r3" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        And the last time.
+      </prompt>
+    </record>
+    <filled>
+      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" fetchtimeout="10s" namelist="r1 r2 r3" enctype="multipart/form-data" />
+      <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
+      <var name="ani" expr="application.ani"/>
+      <var name="cardid" expr="application.cardId" />
+      <if cond="application.cardId &gt; 0">
+        <data name="createClient" srcexpr="newClientApiUri" namelist="ani cardid" fetchtimeout="10s"/>
+        <goto next="#enrollSuccess"/>
+      <else />
+        <goto next="#enrollError"/>
+      </if>
+    </filled>
+  </form>
+
+  <form id="verify">
+    <block>
+      <prompt bargein="false">
+        We've recognized you! Let's proceed to the verification.
+      </prompt>
+    </block>
+    <record name="r1" beep="true" finalsilence="2s">
+      <prompt bargein="false">
+        After the beep please say your passphrase.
+      </prompt>
+    </record>
+    <filled>
+      <var name="ID" expr="application.cardId" />
+      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="ID r1" enctype="multipart/form-data" fetchtimeout="10s"/>
+      <assign name="score" expr="getVerificationScore(verifyRequest);" />
+      <if cond="score &gt; 0.7">
+        <goto next="#verifySuccess"/>
+      <else/>
+        <goto next="#verifyError"/>
+      </if>
+    </filled>
+  </form>
+
+
+  <form id="enrollSuccess">
+    <block>
+      <prompt bargein="false">
+        Congratulations! You voice registration succeeded!
+      </prompt>
+      <disconnect />
+    </block>
+  </form>
+
+  <form id="enrollError">
+    <block>
+      <prompt bargein="false">
+        Registration problem. Please, try again.
+      </prompt>
+      <goto next="#enroll" />
+    </block>
+  </form>
+
+  <form id="verifySuccess">
+    <block>
+      <prompt bargein="false">
+        Congratulations! You voice verification succeeded!
+      </prompt>
+      <disconnect />
+    </block>
+  </form>
+
+  <form id="verifyError">
+    <block>
+      <prompt bargein="false">
+        Verification problem. Please, try again.
+      </prompt>
+      <goto next="#verify" />
+    </block>
+  </form>
+</vxml>
+
