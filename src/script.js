@@ -24,11 +24,22 @@ function getCardId(xml) {
 }
 
 
-function getVerificationScore (d) {
-  var status = d.@EnrollVerify;
-  if (status == 'OK') {
-    var score = d.VoiceKeyScore;
-    return score;
+
+
+// function getVerificationScore (d) {
+//   var status = d.@EnrollVerify;
+//   if (status == 'OK') {
+//     var score = d.VoiceKeyScore;
+//     return score;
+//   }
+//   return -1;
+// }
+
+
+function getVerificationScore (xml) {
+  var status = xml.documentElement.getAttribute("Status");
+  if (status == "OK") {
+    return xml.documentElement.getElementsByTagName("VoiceKeyScore")[0].childNodes[0].nodeValue;
   }
   return -1;
 }

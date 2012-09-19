@@ -78,7 +78,7 @@
     </record>
     <filled>
       <var name="ID" expr="application.cardId" />
-      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="ID r1" enctype="multipart/form-data" ecmaxmltype ="e4x" fetchtimeout="10s"/>
+      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="ID r1" enctype="multipart/form-data" fetchtimeout="10s"/>
       <assign name="score" expr="getVerificationScore(verifyRequest);" />
       <log expr="score" />
       <if cond="score &gt; 0.7">
