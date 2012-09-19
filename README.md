@@ -1,4 +1,4 @@
-[![image](img/voicekey.png)](http://speechpro-usa.com/product/voice_authentication/voicekey)
+[![image](http://speechpro.github.com/voxeo_biometrics/img/voicekey.png)](http://speechpro-usa.com/product/voice_authentication/voicekey)
 
 Voxeo Integration Example
 ================
