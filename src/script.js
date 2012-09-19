@@ -7,14 +7,22 @@ function searchAni(d, client_ani) {
   return -1;
 }
 
-function getCardId (d)
-  {
-    var status = d.@Status;
-    if (status == 'OK') {
-      return d.@CardID;
-    }
-    return -1;
+// function getCardId(d)
+//   {
+//     var status = d.@Status;
+//     if (status == 'OK') {
+//       return d.@CardID;
+//     }
+//     return -1;
+//   }
+function getCardId(xml) {
+  var status = xml.documentElement.getAttribute("Status");
+  if (status == "OK") {
+    return xml.documentElement.getAttribute("CardID");
   }
+  return -1;
+}
+
 
 function getVerificationScore (d) {
   var status = d.@EnrollVerify;

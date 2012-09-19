@@ -50,7 +50,7 @@
       </prompt>
     </record>
     <filled>
-      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" fetchtimeout="10s" namelist="r1 r2 r3" enctype="multipart/form-data" ecmaxmltype ="e4x" />
+      <data name="enrollRequest" srcexpr="enrollApiUri" method="post" fetchtimeout="10s" namelist="r1 r2 r3" enctype="multipart/form-data" />
       <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
       <var name="ani" expr="application.ani"/>
       <var name="cardid" expr="application.cardId" />
