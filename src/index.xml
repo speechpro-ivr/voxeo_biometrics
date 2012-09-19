@@ -54,8 +54,6 @@
       <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
       <var name="ani" expr="application.ani"/>
       <var name="cardid" expr="application.cardId" />
-      <log expr="'ani:' + ani" />
-      <log expr="'cardid:' + cardid" />
       <if cond="application.cardId &gt; 0">
         <data name="createClient" srcexpr="newClientApiUri" namelist="ani cardid" fetchtimeout="10s"/>
         <goto next="#enrollSuccess"/>
@@ -80,7 +78,6 @@
       <var name="ID" expr="application.cardId" />
       <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="ID r1" enctype="multipart/form-data" fetchtimeout="10s"/>
       <assign name="score" expr="getVerificationScore(verifyRequest);" />
-      <log expr="score" />
       <if cond="score &gt; 0.7">
         <goto next="#verifySuccess"/>
       <else/>
