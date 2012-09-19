@@ -16,12 +16,6 @@ function getCardId (d)
     return -1;
   }
 
-function clientXml (client_ani,client_card_id) {
-  // var clientstr = '<client><ani>' + client_ani + '</ani><card-id>' + client_card_id +'</card-id></client>;'
-  clientstr = 'client[ani]=' + client_ani + '&client[card_id]=' + client_card_id;
-  return clientstr;
-}
-
 function getVerificationScore (d) {
   var status = d.@EnrollVerify;
   if (status == 'OK') {

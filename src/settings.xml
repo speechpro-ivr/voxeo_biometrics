@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version="2.1">
 	<var name="clientsApiGetUri" expr="'http://voicekey.herokuapp.com/clients.xml'"/>
-	<var name="clientsApiPostUri" expr="'http://voicekey.herokuapp.com/clients.json'"/>
+	<var name="newClientApiUri" expr="'http://voicekey.herokuapp.com/newclient.xml'"/>
 	<var name="enrollApiUri" expr="'http://voicekey.speechpro.com/avis/vk_api2/enroll.php?apikey=stc'"/>
 	<var name="verifyApiUri" expr="'http://voicekey.speechpro.com/avis/vk_api2/enroll_verify.php?apikey=stc'"/>
 
