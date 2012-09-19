@@ -17,8 +17,8 @@ function getCardId (d)
   }
 
 function clientXml (client_ani,client_card_id) {
-  var clientstr = '<client><ani>' + client_ani + '</ani><card-id>' + client_card_id +'</card-id></client>'
-
+  // var clientstr = '<client><ani>' + client_ani + '</ani><card-id>' + client_card_id +'</card-id></client>;'
+  clientstr = 'client[ani]=' + client_ani + '&client[card_id]=' + client_card_id;
   return clientstr;
 }
 
