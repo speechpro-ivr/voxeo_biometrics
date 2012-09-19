@@ -39,7 +39,7 @@ function getCardId(xml) {
 function getVerificationScore (xml) {
   var status = xml.documentElement.getAttribute("Status");
   if (status == "OK") {
-    return xml.documentElement.getElementsByTagName("VoiceKeyScore")[0].childNodes[0].nodeValue;
+    return xml.documentElement.getElementsByTagName("VoiceKeyScore").item(0).firstChild.data;
   }
   return -1;
 }
