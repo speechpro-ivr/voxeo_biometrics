@@ -19,7 +19,7 @@ function getCardId (d)
 function clientXml (client_ani,client_card_id) {
   var clientstr = '<client><ani>' + client_ani + '</ani><card-id>' + client_card_id +'</card-id></client>'
 
-  return XML(clientstr);
+  return clientstr;
 }
 
 function getVerificationScore (d) {
