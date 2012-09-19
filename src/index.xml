@@ -77,9 +77,9 @@
       </prompt>
     </record>
     <filled>
-      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.ani r1" enctype="multipart/form-data" ecmaxmltype ="e4x" fetchtimeout="10s"/>
+      <data name="verifyRequest" srcexpr="verifyApiUri" method="post" namelist="application.cardId r1" enctype="multipart/form-data" ecmaxmltype ="e4x" fetchtimeout="10s"/>
       <assign name="score" expr="getVerificationScore(verifyRequest);" />
-      <if cond="score > 0.7">
+      <if cond="score &gt; 0.7">
         <goto next="#verifySuccess"/>
       <else/>
         <goto next="#verifyError"/>
