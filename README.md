@@ -10,7 +10,7 @@ Application Description
 ------
 Every registered VoiceKey is identified by `CardID`. Call flow is based on the following scenario:
 
-1. User is identified by CallerID. There should by a place to store the correspondent `CardID`.
+1. User is identified by CallerID. There should be a place to store the correspondent `CardID`.
 2. If `CardID` is found user proceeds to verification, otherwise enrollment is performed.
 
 ### 1. Identification
