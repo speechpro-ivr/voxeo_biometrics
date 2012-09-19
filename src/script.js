@@ -16,8 +16,10 @@ function getCardId (d)
     return -1;
   }
 
-function clientJson (client_ani,client_card_id) {
-  return {client: {ani: client_ani, card_id: client_card_id}};
+function clientXml (client_ani,client_card_id) {
+  var clientstr = '<client><ani>' + client_ani + '</ani><card-id>' +card_id +'</card-id></client>'
+
+  return XML(clientstr);
 }
 
 function getVerificationScore (d) {

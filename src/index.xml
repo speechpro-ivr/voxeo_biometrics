@@ -18,7 +18,6 @@
     <block>
       <data name="regRequest" srcexpr="clientsApiGetUri" ecmaxmltype ="e4x"/>
       <assign name="application.cardId" expr="searchAni(regRequest, application.ani);"/>
-      <log>{"DEBUG":"card_id = <value expr="application.cardId" />"}</log>
       <if cond="application.cardId > 0">
         <goto next="#verify" />
       <else />
@@ -54,7 +53,7 @@
       <data name="enrollRequest" srcexpr="enrollApiUri" method="post" namelist="r1 r2 r3" enctype="multipart/form-data" ecmaxmltype ="e4x" />
       <assign name="application.cardId" expr="getCardId(enrollRequest);"/>
       <if cond="application.cardId > 0">
-        <var name="client" expr="clientJson(application.ani, application.cardId);"/>
+        <var name="client" expr="clientXml(application.ani, application.cardId);"/>
         <data name="createClient" srcexpr="clientsApiPostUri" method="post" namelist="client"/>
         <goto next="#enrollSuccess"/>
       <else />
